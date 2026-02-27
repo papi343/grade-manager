@@ -1,0 +1,12 @@
+#DEpendance
+/vendor/
+composer.lock
+
+#variable d'environnement
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
