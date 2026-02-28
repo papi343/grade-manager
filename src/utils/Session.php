@@ -1,21 +1,7 @@
 <?php
-
 namespace App\Utils;
 
-/**
- * Classe Session - Gestion des sessions utilisateur
- * 
- * Concepts:
- * - Gestion des sessions PHP
- * - Méthodes statiques pour démarrer, détruire et manipuler les sessions
- * - Sécurité des sessions (regénération d'ID, gestion des cookies)
- * 
- * Utilisation:
- * - Session::start() pour démarrer une session
- * - Session::destroy() pour détruire une session
- * - Session::set($key, $value) pour définir une variable de session (ex: Session::set('user_id', 45))
- * - Session::get($key) pour obtenir une variable de session
- */
+
 class Session {
 
     /**
