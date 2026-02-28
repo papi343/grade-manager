@@ -84,7 +84,7 @@ class Auth {
    * @param string $password
    * @return bool True si la connexion est réussie, false sinon
    */
-  public static function tryToConnect(string $email, string $password): bool {
+  public static function attempt(string $email, string $password): bool {
         $userRepository = new UserRepository();
         $user = $userRepository->findByEmail($email);
 

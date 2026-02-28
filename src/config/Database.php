@@ -56,12 +56,12 @@ class Database{
                     PDO::ATTR_PERSISTENT => false,
                 ];
 
-                $this->connection = new PDO($dsn, $this->username, $this->password, $options);
+                $this->connexion = new PDO($dsn, $this->username, $this->password, $options);
             } catch (PDOException $e) {
                 // Gérer les erreurs de connexion
                 die("Erreur de connexion à la base de données : " . $e->getMessage());
             }
-             return $this->connection;
+             return $this->connexion;
         }
        
     }

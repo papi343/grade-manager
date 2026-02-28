@@ -3,22 +3,23 @@ namespace App\Models;
 
 use DateTime;
 
- abstract class User extends BaseEntity{
-    protected string $prenom;
-    protected string $nom;
-    protected string $email;
-    protected string $password;
-    protected string $role;
+ class User extends BaseEntity{
+    private string $prenom;
+    private string $nom;
+    private string $email;
+    private string $password;
+    private string $role;
 
         public function __construct(string $nom = '', 
     string $prenom = '', 
     string $email = '',
-     string $password = '') {
+     string $password = '',string $role = '') {
         parent::__construct(); // Appel au constructeur parent
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
+        $this->role = $role;
     }
 
     public function getPrenom(): string{
@@ -34,7 +35,7 @@ use DateTime;
         return $this->password;
     }
     public function getRole(): string{
-        return $this->getRole();
+        return $this->role;
     }
         public function getPasswordHash(): string {
         return $this->password;

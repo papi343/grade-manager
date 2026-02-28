@@ -7,7 +7,7 @@
     
     <div class="h-screen lg:h-[90vh]  flex justify-center items-center bg-gray-100 ">
 
-        <form action="" method="post" class="p-8 border rounded-xl bg-white">
+        <form action="/login" method="post" class="p-8 border rounded-xl bg-white">
 
             <h2 class="text-2xl font-bold mb-6 text-gray-900 ">Connexion</h2>
 

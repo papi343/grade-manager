@@ -5,19 +5,20 @@ use App\Models\User;
 use App\Models\BaseEntity;
 
 class UserRepository extends BaseRepository {
-    protected string $tableName = 'users';
+    protected string $tableName = 'professeurs';
 
     protected function hydrate(array $data): User
     { 
         $user = new User();
-        $user->setId((int)$data['id'])
-             ->setNom($data['nom'])
+        
+       $user ->setNom($data['nom'])
              ->setPrenom($data['prenom'])
              ->setEmail($data['email'])
              ->setPasswordHash($data['password']) // Charger le hash depuis la DB
              ->setRole($data['role'] ?? null)
              ->setCreatedAt(new \DateTime($data['created_at']))
-             ->setUpdatedAt(new \DateTime($data['updated_at']));
+             ->setUpdatedAt(new \DateTime($data['updated_at']))
+             ->setId((int)$data['id']);
         return $user;
     }
 
@@ -43,14 +44,13 @@ class UserRepository extends BaseRepository {
     public function save(User $user): bool {
         if ($user->getId() === null) {
             // Insertion
-            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password, avatar, role, is_active, created_at, updated_at)
-                    VALUES (:nom, :prenom, :email, :password, :avatar, :role, :is_active, NOW(), NOW())";
+            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password, created_at, updated_at)
+                    VALUES (:nom, :prenom, :email, :password, NOW(), NOW())";
             $params = [
                 ':nom' => $user->getNom(),
                 ':prenom' => $user->getPrenom(),
                 ':email' => $user->getEmail(),
                 ':password' => $user->getPasswordHash(),
-                ':role' => $user->getRole(),
             ];
             $success = $this->executeCommand($sql, $params);
             if ($success) {
@@ -64,9 +64,6 @@ class UserRepository extends BaseRepository {
                     prenom = :prenom,
                     email = :email,
                     password = :password,
-                    avatar = :avatar,
-                    role = :role,
-                    is_active = :is_active,
                     updated_at = NOW()
                     WHERE id = :id";
             $params = [
@@ -74,7 +71,6 @@ class UserRepository extends BaseRepository {
                 ':prenom' => $user->getPrenom(),
                 ':email' => $user->getEmail(),
                 ':password' => $user->getPasswordHash(),
-                ':role' => $user->getRole(),
                 ':id' => $user->getId(),
             ];
             return $this->executeCommand($sql, $params);
