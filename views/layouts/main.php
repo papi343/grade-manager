@@ -2,6 +2,10 @@
     ob_start(); 
     $title = "Grade Manager - " . ($title ?? 'Accueil');
     $currentPage = $currentPage ?? '';
+
+
+    use App\Utils\Auth;
+    use App\Utils\Session;
     
  ?>
 
@@ -47,14 +51,21 @@
                    
 
                         <div class="flex gap-4">
-                            <a href="/login"
-                            class="px-4 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                            Connexion
-                        </a>
-                        <a href="/register"
-                            class="px-4 py-1.5 text-sm font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900 rounded-lg hover:opacity-80 transition-opacity">
-                            Inscription
-                        </a>
+                            <?php if(!Auth::check()): ?>
+                                <a href="/login"
+                                    class="px-4 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                    Connexion
+                                    </a>
+                                    <a href="/register"
+                                    class="px-4 py-1.5 text-sm font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900 rounded-lg hover:opacity-80 transition-opacity">
+                                    Inscription
+                                 </a>
+                            <?php else: ?>
+                                <a href="/logout"
+                                class="px-4 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                Déconnexion
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -105,7 +116,6 @@
         </header>
         <?php 
          // Affichage des messages flash
-            use App\Utils\Session;
 
             $successMessage = Session::getFlash('success');
             $errorMessage = Session::getFlash('error');

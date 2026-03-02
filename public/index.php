@@ -1,7 +1,8 @@
 <?php 
    require __DIR__ . '/../config/config.php';
 
-  use App\Controllers\AuthController;
+    use App\Controllers\AuthController;
+
     $requestUri = $_SERVER['REQUEST_URI'];
     $scriptName = dirname($_SERVER['SCRIPT_NAME']);
     $requestMethod = $_SERVER['REQUEST_METHOD'];
@@ -20,7 +21,6 @@
             require_once __DIR__ . '/../views/client/about.php';
             break;
         case 'login':
-           // require_once __DIR__ . '/../views/auth/login.php';
          $authcontroller = new AuthController();
            if($requestMethod === 'POST')
             {
@@ -31,6 +31,7 @@
                     $authcontroller->showLoginForm();
                 }
             break;
+
         case 'register':
              $authcontroller = new AuthController();
              if($requestMethod === 'POST'){
@@ -39,6 +40,10 @@
              if($requestMethod === 'GET'){
                 $authcontroller->showRegisterForm();
              }
+            break;
+        case 'logout':
+            $authcontroller = new AuthController();
+            $authcontroller->logout();
             break;
         default:
             http_response_code(404);
