@@ -23,6 +23,19 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE TABLE `users` (
+    `id_user` INT NOT NULL AUTO_INCREMENT,
+    `prenom` VARCHAR(50) DEFAULT NULL,
+    `nom` VARCHAR(50) DEFAULT NULL,
+    `email` VARCHAR(100) DEFAULT NULL,
+    `password` VARCHAR(200) DEFAULT NULL,
+    `role` VARCHAR(20) NOT NULL,
+    PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE `users` ADD COLUMN `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `users` ADD COLUMN `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 --
 -- Table structure for table `classes`
 --

@@ -5,7 +5,9 @@ use App\Models\User;
 use App\Models\BaseEntity;
 
 class UserRepository extends BaseRepository {
-    protected string $tableName = 'professeurs';
+
+
+    protected string $tableName = 'users';
 
     protected function hydrate(array $data): User
     { 
@@ -19,6 +21,7 @@ class UserRepository extends BaseRepository {
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))
              ->setId((int)$data['id']);
+
         return $user;
     }
 

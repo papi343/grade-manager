@@ -10,10 +10,12 @@ use DateTime;
     private string $password;
     private string $role;
 
-        public function __construct(string $nom = '', 
-    string $prenom = '', 
-    string $email = '',
-     string $password = '',string $role = '') {
+    public function __construct(string $nom = '', 
+        string $prenom = '', 
+        string $email = '',
+        string $password = '',
+        string $role = '') {
+            
         parent::__construct(); // Appel au constructeur parent
         $this->nom = $nom;
         $this->prenom = $prenom;
