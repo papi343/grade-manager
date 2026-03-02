@@ -40,12 +40,23 @@
                     <a href="/" class="text-xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-75 transition-opacity">
                         GradeManager
                     </a>
-
+                   
                     <!-- Desktop: liens gauche -->
+                     
                     <ul class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600 dark:text-gray-300">
                         <li><a href="/" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'home' ? 'text-gray-900 dark:text-white' : '' ?>">Accueil</a></li>
                         <li><a href="/about" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'about' ? 'text-gray-900 dark:text-white' : '' ?>">À propos</a></li>
-                        <li><a href="/contact" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'contact' ? 'text-gray-900 dark:text-white' : '' ?>">Contact</a></li>
+                        <?php if (Auth::user() !== null) : ?>
+                            <?php // var_dump(Auth::user()->getRole()); ?>
+                            <?php // die('ici') ?>
+                            <?php if(Auth::user()->getRole() === 'professeur'): ?>
+                            <li><a href="/teacher" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'teacher' ? 'text-gray-900 dark:text-white' : '' ?>">Professeur</a></li>
+                            <?php elseif(Auth::user()->getRole() === 'etudiant'): ?>
+                                <li><a href="/student" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'student' ? 'text-gray-900 dark:text-white' : '' ?>">Etudiant</a></li>
+                            <?php elseif(Auth::user()->getRole() === 'admin'): ?>
+                                <li><a href="/admin" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'admin' ? 'text-gray-900 dark:text-white' : '' ?>">Admin</a></li>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </ul>
 
                    
