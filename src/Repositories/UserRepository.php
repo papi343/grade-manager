@@ -16,7 +16,7 @@ class UserRepository extends BaseRepository {
        $user ->setNom($data['nom'])
              ->setPrenom($data['prenom'])
              ->setEmail($data['email'])
-             ->setPasswordHash($data['password']) // Charger le hash depuis la DB
+             ->setPasswordHash($data['PASSWORD']) // Charger le hash depuis la DB
              ->setRole($data['role'] ?? null)
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))

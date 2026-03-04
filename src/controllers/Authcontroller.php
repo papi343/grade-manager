@@ -16,6 +16,7 @@ use App\Models\User;
 class AuthController {
     private UserRepository $userRepository;
 
+
     public function __construct() {
         $this->userRepository = new UserRepository();
     }
@@ -52,7 +53,13 @@ class AuthController {
 
         if(Auth::attempt($email, $password)) {
             Session::flash('success', 'Connexion réussie ! Bienvenue ' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
-            $this->redirect('/'); // Redirection vers la page d'accueil
+            if(Auth::user()->isEtudiant()) {
+                //view etudiants
+                $this->redirect('/');
+            } else {
+                //view prof 
+                $this->redirect('/');
+            }
         } else {
             Session::flash('error', 'Email ou mot de passe incorrect.');
             $this->redirect('/login');
@@ -112,7 +119,7 @@ class AuthController {
         Session::flash('success', 'Vous avez été déconnecté avec succès.');
         $this->redirect('/login');
     }
-
+   
     /**
      * Permet de faire la redirection vers une autre page
      */

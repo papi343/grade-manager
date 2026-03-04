@@ -133,7 +133,7 @@
 
             ?>
             <?php if($successMessage): ?>
-                <div class="container mx-auto px-4 mt-4" role="alert">
+                <div class="container mx-auto px-4 mt-4 block" role="alert">
                     <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded shadow-sm" role="alert">
                         <strong class="font-bold">Succès!</strong>
                         <span class="block sm:inline"><?= htmlspecialchars($successMessage); ?></span>
@@ -142,7 +142,7 @@
             <?php endif; ?>
 
             <?php if($errorMessage): ?>
-                <div class="container mx-auto px-4 mt-4" role="alert">
+                <div class="container mx-auto px-4 mt-4 block" role="alert">
                     <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded shadow-sm" role="alert">
                         <strong class="font-bold">Erreur!</strong>
                         <span class="block sm:inline"><?= htmlspecialchars($errorMessage); ?></span>

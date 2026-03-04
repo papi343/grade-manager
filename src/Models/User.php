@@ -8,20 +8,22 @@ use DateTime;
     private string $nom;
     private string $email;
     private string $password;
+    private ?int $id_classe = null;
     private string $role;
 
     public function __construct(string $nom = '', 
         string $prenom = '', 
         string $email = '',
-        string $password = '',
-        string $role = '') {
+        string $password = '',?int $id_classe = null, string $role = 'etudiant')
+         {
             
         parent::__construct(); // Appel au constructeur parent
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->password = $password;
+        $this->id_classe = $id_classe;
         $this->role = $role;
+        $this->password = $password;
     }
 
     public function getPrenom(): string{
@@ -36,11 +38,12 @@ use DateTime;
     public function getPassword(): string{
         return $this->password;
     }
-    public function getRole(): string{
-        return $this->role;
-    }
+ 
         public function getPasswordHash(): string {
         return $this->password;
+    }
+    public function getRole(): string {
+        return $this->role;
     }
 
         // Setters: Modifier les attributs privés
@@ -58,7 +61,13 @@ use DateTime;
         $this->email = strtolower(trim($email));
         return $this; //Pour le chaînage
     }
-
+    
+    public function isEtudiant(): bool {
+        return $this->id_classe !== null;
+    }
+    public function isProfesseur(): bool {
+        return $this->id_classe === null;
+    }
 
 
     public function setRole(?string $role): self {
