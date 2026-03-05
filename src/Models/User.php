@@ -9,17 +9,21 @@ use DateTime;
     private string $email;
     private string $password;
     private string $role;
+    private int $idClasse;
+    private bool $isActive;
+
 
         public function __construct(string $nom = '', 
     string $prenom = '', 
     string $email = '',
-     string $password = '',string $role = '') {
+     string $password = '',string $role = '',int $idClasse = 0,bool $isActive = true) {
         parent::__construct(); // Appel au constructeur parent
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
+        $this->idClasse = $idClasse;
     }
 
     public function getPrenom(): string{
@@ -40,12 +44,22 @@ use DateTime;
         public function getPasswordHash(): string {
         return $this->password;
     }
+    public function getIdClasse(): int {
+        return $this->idClasse;
+    }
+    public function getIsActive(): bool {
+        return $this->isActive;
+    }
 
         // Setters: Modifier les attributs privés
 
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+        return $this;
+    }
+    public function setIsActive(bool $isActive): self {
+        $this->isActive = $isActive;
         return $this;
     }
     public function setPrenom(string $prenom): self {
@@ -56,9 +70,10 @@ use DateTime;
         $this->email = strtolower(trim($email));
         return $this; //Pour le chaînage
     }
-
-
-
+    public function setIdClasse(int $idClasse): self {
+        $this->idClasse = $idClasse;
+        return $this;
+    }
     public function setRole(?string $role): self {
         // Validation simple avec : admin, member
         if(in_array($role, ['profeseur', 'etudiant'])) {

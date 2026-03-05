@@ -5,7 +5,7 @@ use App\Models\User;
 use App\Models\BaseEntity;
 
 class UserRepository extends BaseRepository {
-    protected string $tableName = 'professeurs';
+    protected string $tableName = 'users';
 
     protected function hydrate(array $data): User
     { 
@@ -14,7 +14,7 @@ class UserRepository extends BaseRepository {
        $user ->setNom($data['nom'])
              ->setPrenom($data['prenom'])
              ->setEmail($data['email'])
-             ->setPasswordHash($data['password']) // Charger le hash depuis la DB
+             ->setPasswordHash($data['PASSWORD']) // Charger le hash depuis la DB
              ->setRole($data['role'] ?? null)
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))
@@ -44,13 +44,14 @@ class UserRepository extends BaseRepository {
     public function save(User $user): bool {
         if ($user->getId() === null) {
             // Insertion
-            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password, created_at, updated_at)
-                    VALUES (:nom, :prenom, :email, :password, NOW(), NOW())";
+            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password,id_classe, created_at, updated_at)
+                    VALUES (:nom, :prenom, :email, :password, :id_classe, NOW(), NOW())";
             $params = [
                 ':nom' => $user->getNom(),
                 ':prenom' => $user->getPrenom(),
                 ':email' => $user->getEmail(),
                 ':password' => $user->getPasswordHash(),
+                ':id_classe' => $user->getIdClasse(),
             ];
             $success = $this->executeCommand($sql, $params);
             if ($success) {
@@ -64,6 +65,7 @@ class UserRepository extends BaseRepository {
                     prenom = :prenom,
                     email = :email,
                     password = :password,
+                    id_classe = :id_classe,
                     updated_at = NOW()
                     WHERE id = :id";
             $params = [
@@ -71,6 +73,7 @@ class UserRepository extends BaseRepository {
                 ':prenom' => $user->getPrenom(),
                 ':email' => $user->getEmail(),
                 ':password' => $user->getPasswordHash(),
+                ':id_classe' => $user->getIdClasse(),
                 ':id' => $user->getId(),
             ];
             return $this->executeCommand($sql, $params);
