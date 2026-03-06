@@ -193,6 +193,16 @@ ALTER TABLE `professeurs`
 ALTER TABLE `semestres`
   MODIFY `id_semestre` int NOT NULL AUTO_INCREMENT;
 COMMIT;
+requet ki inser 4 classe dans la table classes
+ajouter la colone filere et niveau dans la table classes
+ALTER TABLE `classes` ADD COLUMN `niveau` VARCHAR(50) NOT NULL AFTER `nomclasse`;
+ALTER TABLE `classes` ADD COLUMN `filiere` VARCHAR(50) NOT NULL AFTER `niveau`;
+INSERT INTO `classes` (`nomclasse`,`niveau`,`filiere`,`created_at`,`updated_at`) VALUES
+('gl','L1','informatique',NOW(),NOW()),
+('gl','L2','informatique',NOW(),NOW()),
+('gl','L3','informatique',NOW(),NOW()),
+('gl','M1','informatique',NOW(),NOW()),
+('gl','M2','informatique',NOW(),NOW());
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

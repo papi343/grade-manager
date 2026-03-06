@@ -5,6 +5,7 @@ use App\Utils\Auth;
 use App\Utils\Session;
 use App\Repositories\UserRepository;
 use App\Models\User;
+use App\Repositories\ClasseRepository;
 
 /**
  * Classe AuthController - Contrôleur pour l'authentification utilisateur
@@ -15,10 +16,12 @@ use App\Models\User;
  */
 class AuthController {
     private UserRepository $userRepository;
+    private ClasseRepository $classeRepository;
 
 
     public function __construct() {
         $this->userRepository = new UserRepository();
+        $this->classeRepository = new ClasseRepository();
     }
 
     public function showLoginForm(): void {
@@ -36,6 +39,7 @@ class AuthController {
         if(Auth::check()) {
             $this->redirect('/');
         }
+        $classes = $this->classeRepository->findAll();
         require __DIR__ . '/../../views/auth/register.php';
     }
 
@@ -72,9 +76,10 @@ class AuthController {
         $name = trim($_POST['lastname'] ?? '');
         $firstname = trim($_POST['firstname'] ?? '');
         $password = $_POST['password'] ?? '';
+        $classe = $_POST['classe'] ?? '';
 
         // Validation basique
-        if(empty($email) || empty($password) || empty($name) || empty($firstname)) {
+        if(empty($email) || empty($password) || empty($name) || empty($firstname) || empty($classe)) {
             Session::flash('error', 'Veuillez remplir tous les champs.');
             $this->redirect('/register');
             return;
@@ -99,6 +104,7 @@ class AuthController {
         $user->setPrenom($firstname);
         $user->setEmail($email);
         $user->setPassword($password); // Le mot de passe sera hashé dans le setter
+        $user->setIdClasse($classe);
     //     var_dump($user);
     //    var_dump($this->userRepository->save($user));
     //    die("ici");

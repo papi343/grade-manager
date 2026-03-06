@@ -2,6 +2,7 @@
     ob_start();
     $title = "Inscription";
     $currentPage = "register";
+
     ?>
 
     
@@ -20,7 +21,15 @@
                 <label for="lastname" class="block text-gray-700 mb-1 ">Nom</label>
                 <input type="text" id="lastname" name="lastname" required class="md:w-[500px] sm:w-[300px] w-full px-3 py-2 border border-gray-300  rounded-lg focus:outline-none focus:ring focus:ring-gray-200  transition-colors">
             </div>
-
+            <div>
+                <label for="classe" class="block text-gray-700 mb-1 ">Classe</label>
+                <select name="classe" id="" class="md:w-[500px] sm:w-[300px] w-full px-3 py-2 border border-gray-300  rounded-lg focus:outline-none focus:ring focus:ring-gray-200  transition-colors">
+                    <option value="">Choisir une classe</option>
+                    <?php foreach($classes as $classe): ?>
+                        <option value="<?= $classe->getId(); ?>"><?= $classe->getNomclasse() . ' ' . $classe->getNiveau() . ' ' . $classe->getFiliere() ; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 mb-1 ">Email</label>
                 <input type="email" id="email" name="email" required class="md:w-[500px] sm:w-[300px] w-full px-3 py-2 border border-gray-300  rounded-lg focus:outline-none focus:ring focus:ring-gray-200  transition-colors">

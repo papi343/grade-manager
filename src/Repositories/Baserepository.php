@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Config\Database;
@@ -37,7 +36,7 @@ abstract class BaseRepository {
      * Doit implémenter cette méthode pour créer son objet spécifique
      * 
      * @param array $data Données brutes depuis la base de données
-     * @return BaseEntity Instance de l'entité (User, Project, etc.)
+     * @return BaseEntity Instance de l'entité (User, Project, etc.)s
      */
     abstract protected function hydrate(array $data): User;
 
