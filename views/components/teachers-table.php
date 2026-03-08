@@ -17,11 +17,11 @@
                     <?php
                    
                     $teachers = [
-                        ['id' => 1, 'nom' => 'Dupont', 'prenom' => 'Jean', 'login' => 'jdupont'],
-                        ['id' => 2, 'nom' => 'Martin', 'prenom' => 'Marie', 'login' => 'mmartin'],
-                        ['id' => 3, 'nom' => 'Dubois', 'prenom' => 'Pierre', 'login' => 'pdubois'],
-                        ['id' => 4, 'nom' => 'Garcia', 'prenom' => 'Sophie', 'login' => 'sgarcia'],
-                        ['id' => 5, 'nom' => 'Lefebvre', 'prenom' => 'Antoine', 'login' => 'alefebvre'],
+                        ['id' => 1, 'nom' => 'DIALLO', 'prenom' => 'Moustapha', 'login' => 'yaMuss'],
+                        ['id' => 2, 'nom' => 'NDIAYE', 'prenom' => 'lAMINE', 'login' => 'nDIAE'],
+                        ['id' => 3, 'nom' => 'SECK', 'prenom' => 'Fallou', 'login' => 'Fseck'],
+                        ['id' => 4, 'nom' => 'FOFANA', 'prenom' => 'Balla', 'login' => 'fFOFANA'],
+                        ['id' => 5, 'nom' => 'SANKARA', 'prenom' => 'Thierno', 'login' => 'sANKARA'],
                     ];
                     foreach ($teachers as $teacher): ?>
                     <tr class="hover:bg-gray-50 transition-colors duration-200">

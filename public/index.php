@@ -49,8 +49,15 @@
 
         case 'admin':
             require_once __DIR__ . '/../views/admin/admin-dashboard.php';
-            break;     
+            break; 
+            
+        case 'dashboard':
+            require_once __DIR__ . '/../views/admin/dashboard.php';
+            break;
 
+        case 'statistiques':
+            require_once __DIR__ . '/../views/admin/statistiques.php';
+            break;
 
         default:
             http_response_code(404);

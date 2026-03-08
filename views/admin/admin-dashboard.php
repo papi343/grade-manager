@@ -51,7 +51,10 @@
        
         <?php include __DIR__ . '/../components/stats-cards.php'; ?>
 
-      
+        <div class="my-8 border-t border-gray-300 pt-8">
+            <a href="/dashboard" class="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700">Dashboard</a>
+            <a href="/statistiques" class="text-white bg-gray-900 px-4 py-2 rounded-md hover:bg-gray-800">Stats Etudiants</a>
+        </div>
         <div class="mb-8">
             <h2 class="text-2xl font-semibold text-gray-700 mb-4">Gestion des Professeurs</h2>
             <button id="add-teacher-btn" class="btn-primary px-4 py-2 rounded-lg font-medium">

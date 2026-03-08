@@ -20,11 +20,11 @@
                     <?php
                  
                     $students = [
-                        ['id' => 1, 'nom' => 'Alice Dupont', 'classe' => '6ème A'],
-                        ['id' => 2, 'nom' => 'Bob Martin', 'classe' => '5ème B'],
-                        ['id' => 3, 'nom' => 'Charlie Dubois', 'classe' => '4ème C'],
-                        ['id' => 4, 'nom' => 'Diana Garcia', 'classe' => '3ème A'],
-                        ['id' => 5, 'nom' => 'Eve Lefebvre', 'classe' => '2nde B'],
+                        ['id' => 1, 'nom' => 'Ahmad Thiobane', 'classe' => 'Informatique de Gestion'],
+                        ['id' => 2, 'nom' => 'Yaya Dabo', 'classe' => 'Systemes et Reseaux'],
+                        ['id' => 3, 'nom' => 'Charles Du-Croix', 'classe' => 'Cybersecurité'],
+                        ['id' => 4, 'nom' => 'Magueye Mbaye', 'classe' => 'Reseau et Telecom'],
+                        ['id' => 5, 'nom' => 'Awa Sall', 'classe' => 'Genie Logiciel'],
                     ];
                     foreach ($students as $student): ?>
                     <tr class="hover:bg-gray-50 transition-colors duration-200">
