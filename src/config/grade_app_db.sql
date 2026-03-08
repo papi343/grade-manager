@@ -11,199 +11,130 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS `grade_app_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `grade_app_db`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `grade_app_db`
---
-
--- --------------------------------------------------------
-
-CREATE TABLE `users` (
-    `id_user` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
     `prenom` VARCHAR(50) DEFAULT NULL,
     `nom` VARCHAR(50) DEFAULT NULL,
     `email` VARCHAR(100) DEFAULT NULL,
     `password` VARCHAR(200) DEFAULT NULL,
     `role` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `classe_id` INT DEFAULT NULL,
+    FOREIGN KEY (`classe_id`) REFERENCES `classes`(`id`) ON DELETE SET NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
-ALTER TABLE `users` ADD COLUMN `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `users` ADD COLUMN `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
---
--- Table structure for table `classes`
---
+CREATE TABLE IF NOT EXISTS `classes` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `filiere` varchar(50) DEFAULT NULL,
+  `niveau` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
-CREATE TABLE `classes` (
-  `id_classe` int NOT NULL,
-  `nomclasse` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `etudiants`
---
+CREATE TABLE IF NOT EXISTS `matieres` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
+  `professeur_id` int DEFAULT NULL,
+  `classe_id` int DEFAULT NULL,
+  `semestre_id` int DEFAULT NULL,
+  `coef` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`professeur_id`) REFERENCES `users`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`classe_id`) REFERENCES `classes`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`semestre_id`) REFERENCES `semestres`(`id`) ON DELETE SET NULL
+);
 
-CREATE TABLE `etudiants` (
-  `id_user` int NOT NULL,
-  `prenom` varchar(50) DEFAULT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `PASSWORD` varchar(200) DEFAULT NULL,
-  `role` varchar(20) NOT NULL,
-  `id_classe` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `matieres`
---
+CREATE TABLE IF NOT EXISTS `notes` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `note` float NOT NULL,
+  `semestre_id` int DEFAULT NULL,
+  `matiere_id` int DEFAULT NULL,
+  `etudiant_id` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`semestre_id`) REFERENCES `semestres`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`matiere_id`) REFERENCES `matieres`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`etudiant_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
+);
 
-CREATE TABLE `matieres` (
-  `id_mat` int NOT NULL,
-  `libeller` varchar(50) DEFAULT NULL,
-  `id_prof` int DEFAULT NULL,
-  `id_classe` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `notes`
---
+CREATE TABLE IF NOT EXISTS `semestres` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `nomSemestre` varchar(50) DEFAULT NULL
+);
 
-CREATE TABLE `notes` (
-  `id_note` int NOT NULL,
-  `id_mat` int DEFAULT NULL,
-  `note` int DEFAULT NULL,
-  `id_semestre` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `enseignements` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `professeur_id` int DEFAULT NULL,
+  `matiere_id` int DEFAULT NULL,
+  `classe_id` int DEFAULT NULL,
+  `semestre_id` int DEFAULT NULL,
+  FOREIGN KEY (`professeur_id`) REFERENCES `users`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`matiere_id`) REFERENCES `matieres`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`classe_id`) REFERENCES `classes`(`id`) ON DELETE SET NULL,
+  FOREIGN KEY (`semestre_id`) REFERENCES `semestres`(`id`) ON DELETE SET NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
---
--- Table structure for table `professeurs`
---
+-- seeding data for semestres
+INSERT INTO `semestres` (`nomSemestre`) VALUES
+('Semestre 1'),
+('Semestre 2'),
+('Semestre 3'),
+('Semestre 4'),
+('Semestre 5'),
+('Semestre 6');
 
-CREATE TABLE `professeurs` (
-  `id_user` int NOT NULL,
-  `prenom` varchar(50) DEFAULT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(200) DEFAULT NULL,
-  `role` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- seeding data for classes
+INSERT INTO `classes` (`filiere`, `niveau`) VALUES
+('Scientifique', 'Terminale'),
+('Littéraire', 'Terminale'),
+('Économique', 'Terminale'),
+('Scientifique', 'Première'),
+('Littéraire', 'Première');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `semestres`
---
+-- seeding data for matieres
 
-CREATE TABLE `semestres` (
-  `id_semestre` int NOT NULL,
-  `nomsemestre` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- seeding data for classes
+INSERT INTO `classes` (`filiere`, `niveau`) VALUES
+('GL', 'L1'),
+('GL', 'L2'),
+('GL', 'L3'),
+('GL', 'M1'),
+('GL', 'M2'), 
+('RI', 'L1'),
+('RI', 'L2'),
+('RI', 'L3'),
+('RI', 'M1'),
+('RI', 'M2'),
+('CS', 'L1'),
+('CS', 'L2'),
+('CS', 'L3'),
+('CS', 'M1'),
+('CS', 'M2'),
+('IAGE', 'L1'),
+('IAGE', 'L2'),
+('IAGE', 'L3'),
+('IAGE', 'M1'),
+('IAGE', 'M2');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id_classe`);
 
---
--- Indexes for table `etudiants`
---
-ALTER TABLE `etudiants`
-  ADD PRIMARY KEY (`id_user`);
 
---
--- Indexes for table `matieres`
---
-ALTER TABLE `matieres`
-  ADD PRIMARY KEY (`id_mat`);
 
---
--- Indexes for table `notes`
---
-ALTER TABLE `notes`
-  ADD PRIMARY KEY (`id_note`);
 
---
--- Indexes for table `professeurs`
---
-ALTER TABLE `professeurs`
-  ADD PRIMARY KEY (`id_user`);
 
---
--- Indexes for table `semestres`
---
-ALTER TABLE `semestres`
-  ADD PRIMARY KEY (`id_semestre`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `id_classe` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `etudiants`
---
-ALTER TABLE `etudiants`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `matieres`
---
-ALTER TABLE `matieres`
-  MODIFY `id_mat` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notes`
---
-ALTER TABLE `notes`
-  MODIFY `id_note` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `professeurs`
---
-ALTER TABLE `professeurs`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `semestres`
---
-ALTER TABLE `semestres`
-  MODIFY `id_semestre` int NOT NULL AUTO_INCREMENT;
-COMMIT;
-requet ki inser 4 classe dans la table classes
-ajouter la colone filere et niveau dans la table classes
-ALTER TABLE `classes` ADD COLUMN `niveau` VARCHAR(50) NOT NULL AFTER `nomclasse`;
-ALTER TABLE `classes` ADD COLUMN `filiere` VARCHAR(50) NOT NULL AFTER `niveau`;
-INSERT INTO `classes` (`nomclasse`,`niveau`,`filiere`,`created_at`,`updated_at`) VALUES
-('gl','L1','informatique',NOW(),NOW()),
-('gl','L2','informatique',NOW(),NOW()),
-('gl','L3','informatique',NOW(),NOW()),
-('gl','M1','informatique',NOW(),NOW()),
-('gl','M2','informatique',NOW(),NOW());
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
