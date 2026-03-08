@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade Manager - Admin Dashboard</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Heroicons CDN -->
+<?php 
+
+    $title = "Admin";
+    $currentPage = "admin";
+
+    ob_start();
+
+
+?>
     <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
     <style>
-        /* Custom styles for transitions and hover effects */
+        
         .card-hover {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
@@ -61,13 +61,11 @@
             </button>
         </div>
 
-        <!-- TEACHERS TABLE -->
+       
         <?php include '../components/teachers-table.php'; ?>
 
-        <!-- STUDENTS PREVIEW -->
         <?php include '../components/students-preview.php'; ?>
 
-        <!-- ADD TEACHER MODAL -->
         <?php include '../components/add-teacher-modal.php'; ?>
     </div>
 
@@ -97,5 +95,7 @@
             }
         });
     </script>
-</body>
-</html>
+
+<?php
+    $content = ob_get_clean();
+    require __DIR__ .'../layouts/main.php';
