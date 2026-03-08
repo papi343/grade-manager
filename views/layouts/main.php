@@ -57,7 +57,14 @@
                                 <li><a href="/admin" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'admin' ? 'text-gray-900 dark:text-white' : '' ?>">Admin</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
+
+                        <!-- Admin TESTTTT-->
+                     
+                        <li><a href="/admin" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'admin' ? 'text-gray-900 dark:text-white' : '' ?>">Admin</a></li>
+                     
                     </ul>
+
+                    
 
                    
 

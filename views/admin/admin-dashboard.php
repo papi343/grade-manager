@@ -9,7 +9,6 @@
 ?>
     <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
 
-
     <style>
         
         .card-hover {
@@ -50,7 +49,7 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard Administrateur - Grade Manager</h1>
 
        
-        <?php include '../components/stats-cards.php'; ?>
+        <?php include __DIR__ . '/../components/stats-cards.php'; ?>
 
       
         <div class="mb-8">
@@ -64,11 +63,11 @@
         </div>
 
        
-        <?php include '../components/teachers-table.php'; ?>
+        <?php include __DIR__ . '/../components/teachers-table.php'; ?>
 
-        <?php include '../components/students-preview.php'; ?>
+        <?php include __DIR__ . '/../components/students-preview.php'; ?>
 
-        <?php include '../components/add-teacher-modal.php'; ?>
+        <?php include __DIR__ . '/../components/add-teacher-modal.php'; ?>
     </div>
 
    
@@ -100,4 +99,4 @@
 
 <?php
     $content = ob_get_clean();
-    require __DIR__ .'../layouts/main.php';
+    require __DIR__ .'/../layouts/main.php';
