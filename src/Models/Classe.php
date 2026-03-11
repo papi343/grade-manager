@@ -1,15 +1,14 @@
 <?php
 namespace App\Models;
 
-class Classe {
+class Classe extends BaseEntity {
     private string $nomClasse;
     private  string $filiere;
     private string $niveau;
-   private ?int $id = null;
+ 
     
-public function __construct(?int $id = null,string $nomClasse = '',string $filiere = '',string $niveau = '') {
+public function __construct(string $nomClasse = '',string $filiere = '',string $niveau = '') {
        
-        $this->id = $id;
         $this->nomClasse = $nomClasse;
         $this->filiere = $filiere;
         $this->niveau = $niveau;
@@ -43,6 +42,7 @@ public function __construct(?int $id = null,string $nomClasse = '',string $filie
         return $this;
     }
 
+    
     public function toArray(): array
     {
         return[
@@ -54,5 +54,6 @@ public function __construct(?int $id = null,string $nomClasse = '',string $filie
             'updatedAt'=> $this->updatedAt ? $this->createdAt->format('Y-m-d h:i:s') : null,
         ];
     }
+
 
 }

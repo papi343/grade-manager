@@ -56,14 +56,21 @@ class AuthController {
         }
 
         if(Auth::attempt($email, $password)) {
-            Session::flash('success', 'Connexion réussie ! Bienvenue ' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
-            if(Auth::user()->isEtudiant()) {
+            // var_dump(Auth::user()->getIdClasse());
+            // var_dump(Auth::user()->getPasswordVerifyAt());
+            // die("ici");
+           // Session::flash('success', 'Connexion réussie ! Bienvenue ' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
+            if(Auth::user()->getIdClasse() === null && Auth::user()->getPasswordVerifyAt() === null) {
+                Session::flash('success', 'Connexion réussie ! Bienvenue prof' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
                 //view etudiants
                 $this->redirect('/');
-            } else {
+            }else if (Auth::user()->getIdClasse() === null && Auth::user()->getPasswordVerifyAt() !== null) {
                 //view prof 
-                $this->redirect('/');
-            }
+             $this->redirect('/admin');
+            } else {
+                Session::flash('success', 'Connexion réussie ! Bienvenue eleve' . Auth::user()->getNom() .Auth::user()->getPrenom() . '!');
+                 $this->redirect('/');
+            }   
         } else {
             Session::flash('error', 'Email ou mot de passe incorrect.');
             $this->redirect('/login');
@@ -79,7 +86,7 @@ class AuthController {
         $classe = $_POST['classe'] ?? '';
 
         // Validation basique
-        if(empty($email) || empty($password) || empty($name) || empty($firstname) || empty($classe)) {
+        if(empty($email) || empty($password) || empty($name) || empty($firstname)) {
             Session::flash('error', 'Veuillez remplir tous les champs.');
             $this->redirect('/register');
             return;

@@ -10,11 +10,13 @@ use DateTime;
     private string $password;
     private ?int $id_classe = null;
     private string $role;
+    private ?DateTime $password_verify_at = null;
+    private bool $is_active = true;
 
     public function __construct(string $nom = '', 
         string $prenom = '', 
         string $email = '',
-        string $password = '',?int $id_classe = null, string $role = 'etudiant')
+        string $password = '',?int $id_classe = null, string $role = '')
          {
             
         parent::__construct(); // Appel au constructeur parent
@@ -45,6 +47,12 @@ use DateTime;
     public function getRole(): string {
         return $this->role;
     }
+    public function getPasswordVerifyAt(): ?DateTime {
+        return $this->password_verify_at;
+    }
+    public function getIdClasse(): ?int {
+        return $this->id_classe;
+    }
 
         // Setters: Modifier les attributs privés
 
@@ -61,7 +69,18 @@ use DateTime;
         $this->email = strtolower(trim($email));
         return $this; //Pour le chaînage
     }
-    
+    public function setPasswordVerifyAt(?DateTime $password_verify_at): self {
+        $this->password_verify_at = $password_verify_at;
+        return $this;
+    }
+    public function setIdClasse(?int $id_classe): self {
+        $this->id_classe = $id_classe;
+        return $this;
+    }
+    public function setIsActive(bool $is_active): self {
+        $this->is_active = $is_active;
+        return $this;
+    }
     public function isEtudiant(): bool {
         return $this->id_classe !== null;
     }
@@ -72,7 +91,7 @@ use DateTime;
 
     public function setRole(?string $role): self {
         // Validation simple avec : admin, member
-        if(in_array($role, ['profeseur', 'etudiant'])) {
+        if(in_array($role, ['professeur', 'etudiant'])) {
             $this->role = $role;
         }
         return $this;
@@ -86,7 +105,7 @@ use DateTime;
      */
     public function setPassword(string $password): self {
         // hachage du mots de passe 
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->password = $password; //password_hash($password, PASSWORD_BCRYPT);
         return $this;
     }
 
@@ -97,9 +116,10 @@ use DateTime;
     }
       // verfication du mots de passe comparaison avec celui hacher dans la base de donnner 
     public function verifyPassword(string $password): bool {
-        return password_verify($password, $this->password);
+        return $password === $this->password;
+       // return password_verify($password, $this->password);
     }
-
+   
 
     public function toArray(): array
     {

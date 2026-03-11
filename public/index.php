@@ -2,6 +2,7 @@
    require __DIR__ . '/../config/config.php';
 
     use App\Controllers\AuthController;
+    use App\Controllers\Teacherscontroller;
 
     $requestUri = $_SERVER['REQUEST_URI'];
     $scriptName = dirname($_SERVER['SCRIPT_NAME']);
@@ -41,7 +42,7 @@
                 $authcontroller->showRegisterForm();
              }
             break;
-        case 'logout':
+        case 'logout':  
             $authcontroller = new AuthController();
             $authcontroller->logout();
             break;
@@ -57,6 +58,12 @@
 
         case 'statistiques':
             require_once __DIR__ . '/../views/admin/statistiques.php';
+            break;
+        case 'teachers/register':
+            $teacherscontroller = new Teacherscontroller();
+            if($requestMethod === 'POST'){
+                $teacherscontroller->register();
+            }
             break;
 
         default:

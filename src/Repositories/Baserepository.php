@@ -38,7 +38,7 @@ abstract class BaseRepository {
      * @param array $data Données brutes depuis la base de données
      * @return BaseEntity Instance de l'entité (User, Project, etc.)s
      */
-    abstract protected function hydrate(array $data): User;
+    abstract protected function hydrate(array $data): BaseEntity;
 
     public function findAll(): array {
         try {
@@ -114,5 +114,21 @@ abstract class BaseRepository {
 
         $message = date('Y-m-d H:i:s') . " - Erreur PDO: " . $e->getMessage() . PHP_EOL;
         file_put_contents($logFile, $message, FILE_APPEND);
+    }
+    public function getEffectif()
+    {
+        try {
+            $sql = "SELECT COUNT(*) FROM {$this->tableName}";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(); // Tableau associatif ou false
+            if ($result) {
+                return $result['COUNT(*)'];
+            }
+            return 0;
+        } catch (PDOException $e) {
+            $this->logError($e);
+            return 0;
+        }
     }
 }

@@ -6,7 +6,6 @@ use App\Models\BaseEntity;
 
 class UserRepository extends BaseRepository {
 
-
     protected string $tableName = 'users';
 
     protected function hydrate(array $data): User
@@ -16,8 +15,10 @@ class UserRepository extends BaseRepository {
              ->setNom($data['nom'])
              ->setPrenom($data['prenom'])
              ->setEmail($data['email'])
-             ->setPasswordHash($data['PASSWORD']) // Charger le hash depuis la DB
+             ->setPasswordHash($data['password']) // Charger le hash depuis la DB
              ->setRole($data['role'] ?? null)
+             ->setIdClasse($data['classe_id'] ?? null)
+             ->setPasswordVerifyAt($data['password_verify_at'] ?? null)
              ->setCreatedAt(new \DateTime($data['created_at']))
              ->setUpdatedAt(new \DateTime($data['updated_at']))
              ->setId((int)$data['id']);
@@ -47,16 +48,21 @@ class UserRepository extends BaseRepository {
     public function save(User $user): bool {
         if ($user->getId() === null) {
             // Insertion
-            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password, avatar, role, is_active, created_at, updated_at)
-                    VALUES (:nom, :prenom, :email, :password, :avatar, :role, :is_active, NOW(), NOW())";
+            $sql = "INSERT INTO {$this->tableName} (nom, prenom, email, password, role,classe_id,password_verify_at, created_at, updated_at)
+                    VALUES (:nom, :prenom, :email, :password, :role, :classe_id,:password_verify_at, NOW(), NOW())";
             $params = [
                 ':nom' => $user->getNom(),
                 ':prenom' => $user->getPrenom(),
                 ':email' => $user->getEmail(),
-                ':password' => $user->getPasswordHash(),
+                ':password' => $user->getPassword(),
                 ':role' => $user->getRole(),
+                ':classe_id' => $user->getIdClasse(),
+                ':password_verify_at' => $user->getPasswordVerifyAt(),
+
             ];
+
             $success = $this->executeCommand($sql, $params);
+       
             if ($success) {
                 $user->setId($this->lastInsertId());
             }
@@ -68,9 +74,9 @@ class UserRepository extends BaseRepository {
                     prenom = :prenom,
                     email = :email,
                     password = :password,
-                    avatar = :avatar,
                     role = :role,
-                    is_active = :is_active,
+                    classe_id = :classe_id,
+                    password_verify_at = :password_verify_at,
                     updated_at = NOW()
                     WHERE id = :id";
             $params = [
@@ -79,6 +85,8 @@ class UserRepository extends BaseRepository {
                 ':email' => $user->getEmail(),
                 ':password' => $user->getPasswordHash(),
                 ':role' => $user->getRole(),
+                ':classe_id' => $user->getIdClasse(),
+                ':password_verify_at' => $user->getPasswordVerifyAt(),
                 ':id' => $user->getId(),
             ];
             return $this->executeCommand($sql, $params);
