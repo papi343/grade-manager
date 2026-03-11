@@ -23,7 +23,7 @@
 
             <div id="error" class="text-red-500 mb-4"></div>
 
-            <button type="submit" class="w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:border-2 transition-colors ">Se connecter</button>
+            <button type="submit" class="w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:border-2 transition-colors ">Changer le mot de passe</button>
 
         </form>
 
