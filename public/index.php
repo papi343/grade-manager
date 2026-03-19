@@ -74,12 +74,17 @@
                 $teacherscontroller->showAdminPasswordForm();
             }
             break;
-        // case 'teacher':
-        //     $teacherscontroller = new Teacherscontroller();
-        //     if($requestMethod === 'GET'){
-        //         $teacherscontroller->index();
-        //     }
-        //     break;
+            
+        case 'teacher':
+            require_once __DIR__ . '/../views/teacher/index.php'; 
+            break;
+
+        case 'classe':
+            require_once __DIR__ . '/../views/teacher/class.php'; 
+            break;
+        case 'note':
+            require_once __DIR__ . '/../views/teacher/note.php';
+            break;
 
         default:
             http_response_code(404);

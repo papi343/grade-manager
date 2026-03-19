@@ -61,7 +61,8 @@
                         <!-- Admin TESTTTT-->
                      
                         <li><a href="/admin" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'admin' ? 'text-gray-900 dark:text-white' : '' ?>">Admin</a></li>
-                     
+                        <li><a href="/teacher" class="nav-link text-xl hover:text-gray-900 dark:hover:text-white transition-colors <?= $currentPage === 'teacher' ? 'text-gray-900 dark:text-white' : '' ?>">Professeur</a></li>
+                        
                     </ul>
 
                     
