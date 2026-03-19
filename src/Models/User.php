@@ -74,6 +74,7 @@ use DateTime;
         $this->password_verify_at = $password_verify_at;
         return $this;
     }
+    //set password verify at from string
     public function setPasswordVerifyAtString(?string $password_verify_at): self {
         if($password_verify_at !== null){
             $this->password_verify_at = new \DateTime($password_verify_at);

@@ -32,7 +32,7 @@ class Teacherscontroller {
         Session::flash('error', 'Veuillez remplir tous les champs.');
         $this->redirect('/admin');
         return;
-     }
+     } //Automatically generate a passwordi
 
        $user = new User();
        $user->setEmail($meail);
