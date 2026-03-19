@@ -82,6 +82,9 @@
         case 'classe':
             require_once __DIR__ . '/../views/teacher/class.php'; 
             break;
+        case 'note':
+            require_once __DIR__ . '/../views/teacher/note.php';
+            break;
 
         default:
             http_response_code(404);
