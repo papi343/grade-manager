@@ -15,7 +15,6 @@
 
     switch ($url) {
         case '':
-            break;
         case 'home':
             require_once __DIR__ . '/../views/index.php';
             break;
