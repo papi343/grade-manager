@@ -92,4 +92,18 @@ class UserRepository extends BaseRepository {
             return $this->executeCommand($sql, $params);
         }
     }
+
+    public function getAllProfesseurs(): array {
+        $sql = "SELECT * FROM {$this->tableName} WHERE role = 'professeur'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getStudentsByClasse(int $classeId): array {
+        $sql = "SELECT * FROM {$this->tableName} WHERE role = 'student' AND classe_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$classeId]);
+        return $stmt->fetchAll();
+    }
 }

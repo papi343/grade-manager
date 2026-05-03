@@ -7,15 +7,15 @@ class Classe extends BaseEntity {
     private string $niveau;
  
     
-public function __construct(string $nomClasse = '',string $filiere = '',string $niveau = '') {
+public function __construct(string $filiere = '',string $niveau = '') {
        
-        $this->nomClasse = $nomClasse;
         $this->filiere = $filiere;
         $this->niveau = $niveau;
     }
     public function getId(): ?int{
         return $this->id;
     }
+    
     public function setId(int $id): self{
         $this->id = $id;
         return $this;

@@ -1,8 +1,10 @@
 <?php 
-   require __DIR__ . '/../config/config.php';
+   require_once __DIR__ . '/../config/config.php';
 
     use App\Controllers\AuthController;
     use App\Controllers\Teacherscontroller;
+    use App\Controllers\Assigne_modalcontroller;
+    use App\Controllers\NotesController;
 
     $requestUri = $_SERVER['REQUEST_URI'];
     $scriptName = dirname($_SERVER['SCRIPT_NAME']);
@@ -49,6 +51,7 @@
 
 
         case 'admin':
+            
             require_once __DIR__ . '/../views/admin/admin-dashboard.php';
             break; 
             
@@ -74,17 +77,29 @@
                 $teacherscontroller->showAdminPasswordForm();
             }
             break;
-            
-        case 'teacher':
-            require_once __DIR__ . '/../views/teacher/index.php'; 
+        case 'assigne':
+            $assignecontroller = new Assigne_modalcontroller();
+            if($requestMethod === 'POST'){
+                $assignecontroller->createAssign();
+            }
+            if($requestMethod === 'GET'){
+                $assignecontroller->showAssignForm();
+            }
             break;
-
-        case 'classe':
-            require_once __DIR__ . '/../views/teacher/class.php'; 
+        case 'teacher/class':
+            $classId = (int)($_GET['class_id'] ?? 0);
+            $notesController = new NotesController();
+            $notesController->showClass($classId);
             break;
         case 'note':
-            require_once __DIR__ . '/../views/teacher/note.php';
+            $notesController = new NotesController();
+            if ($requestMethod === 'POST') {
+                $notesController->store();
+            } else {
+                $notesController->showNoteForm();
+            }
             break;
+        // case 'teacher':
 
         default:
             http_response_code(404);

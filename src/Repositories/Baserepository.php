@@ -42,7 +42,7 @@ abstract class BaseRepository {
 
     public function findAll(): array {
         try {
-            $sql = "SELECT * FROM {$this->tableName} ORDER BY created_at DESC";
+            $sql = "SELECT * FROM {$this->tableName}";
             $stmt = $this->pdo->prepare($sql);// Prepare la requête
             $stmt->execute();
             $results = $stmt->fetchAll(); // Tableau de tableaux associatifs
@@ -51,6 +51,11 @@ abstract class BaseRepository {
              $this->logError($e);
             return [];
         }
+    }
+    public function getAllProfesseurs() {
+        $query = "SELECT * FROM {$this->tableName} where role = 'professeur'";
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function findById(int $id): ?BaseEntity {

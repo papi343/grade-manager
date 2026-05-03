@@ -1,11 +1,23 @@
 <?php 
-
     $title = "Admin";
     $currentPage = "admin";
 
+    use App\Repositories\MatiereRepository;
+    use App\Repositories\ClasseRepository;
+    use App\Repositories\SemestreRepository;
+    use App\Repositories\UserRepository;
+
+    $matiereRepo = new MatiereRepository();
+    $classeRepo = new ClasseRepository();
+    $semestreRepo = new SemestreRepository();
+    $userRepo = new UserRepository();
+
+    $matieres = $matiereRepo->findAll();
+    $classes = $classeRepo->findAll();
+    $semestres = $semestreRepo->findAll();
+    $professeurs = $userRepo->getAllProfesseurs();
+
     ob_start();
-
-
 ?>
     <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
 
@@ -71,6 +83,13 @@
                     </svg>
                     Assigner matiere
                 </button>
+
+                <a href="/teacher/class?class_id=1&matiere_id=1&semestre_id=1" class="btn-secondary px-4 py-2 rounded-lg font-medium inline-block ml-2">
+                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Gérer les notes (Test L1)
+                </a>
             </div>
         </div>
 

@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Config\Database;
 use App\Models\Classe;
+use App\Models\BaseEntity;
 use PDO;
 
 class ClasseRepository extends BaseRepository {
@@ -10,12 +11,14 @@ class ClasseRepository extends BaseRepository {
   
 
 
-   protected function hydrate(array $data): Classe {
-        return new Classe(
-            $data['nomclasse'],
-            $data['filiere'],
-            $data['niveau']
+    protected function hydrate(array $data): Classe {
+        $classe = new Classe(
+            $data['filiere'] ?? '',
+            $data['niveau'] ?? ''
         );
+        $classe->setId((int)$data['id']);
+        $classe->setNomclasse($data['nomclasse'] ?? '');
+        return $classe;
     }
     public function hydrateMultiple(array $results): array {
         $entities = [];

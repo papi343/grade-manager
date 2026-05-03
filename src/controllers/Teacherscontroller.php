@@ -3,18 +3,22 @@ namespace App\Controllers;
 
 use App\Utils\Auth;
 use App\Utils\Session;
-use App\Repositories\UserRepository;
 use App\Models\User;
+use App\Models\Enseignements;
+use App\Repositories\UserRepository;
 use App\Repositories\ClasseRepository;
+use App\Repositories\EnseignementsRepository;
 use DateTime;
 
 class Teacherscontroller {
     private $userRepository;
     private $classeRepository;
+    private $enseignementsRepository;
 
     public function __construct() {
         $this->userRepository = new UserRepository();
         $this->classeRepository = new ClasseRepository();
+        $this->enseignementsRepository = new EnseignementsRepository();
     }
 
     public function index2() {
@@ -28,6 +32,8 @@ class Teacherscontroller {
        $name = $_POST['nom'];
        $firstname = $_POST['prenom'];
        $role = "professeur";
+
+
      if(empty($meail) || empty($password) || empty($name) || empty($firstname)){
         Session::flash('error', 'Veuillez remplir tous les champs.');
         $this->redirect('/admin');
@@ -42,10 +48,9 @@ class Teacherscontroller {
        $user->setRole($role);
    
        if($this->userRepository->save($user)){
-       
-        Session::flash('success', 'Professeur ajouté avec succès.');
+         Session::flash('success', 'Professeur ajouté avec succès.');
        }else{
-        Session::flash('error', 'Erreur lors de l\'ajout du professeur.');
+         Session::flash('error', 'Erreur lors de l\'ajout du professeur.');
        }
        $this->redirect('/admin');
    }

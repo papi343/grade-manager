@@ -9,7 +9,7 @@ class Matieres extends BaseEntity{
     private ?int $id_prof;
     private ?int $id_classe;
 
-    public function __construct(string $libeller = '', ?int $id_prof= '', ?int $id_classe)
+    public function __construct(string $libeller = '', ?int $id_prof = null, ?int $id_classe = null)
     { 
         parent::__construct();
         $this->libeller = $libeller ;

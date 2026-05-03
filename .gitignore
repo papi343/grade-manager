@@ -14,6 +14,12 @@ composer.lock
 #logs
 logs/
 
-#cache
+# Cache
 cache/
 
+# Fichiers de travail temporaires (Antigravity)
+scratch/
+implementation_plan.md
+task.md
+walkthrough.md
+dump_schema.php

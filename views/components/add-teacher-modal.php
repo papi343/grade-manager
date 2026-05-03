@@ -32,6 +32,7 @@
                     </div>
                     <p class="text-xs text-gray-500 mt-1">Le mot de passe sera défini à "1234" par défaut.</p>
                 </div>
+
                 <div class="flex justify-end space-x-3 pt-4">
                     <button type="button" id="cancel-btn" class="btn-secondary px-4 py-2 rounded-lg font-medium">
                         Annuler
